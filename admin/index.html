@@ -1,13 +1,53 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Content Manager</title>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </head>
-  <body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Website Admin Panel</title>
+
+    <!-- Load Decap CMS -->
     <script>
-      CMS.init();
+      /* Force Decap CMS to load config.yaml (avoids MIME issues on some hosts) */
+      window.CMS_CONFIG_PATH = "/admin/config.yaml";
+    </script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <style>
+      body {
+        background: #f5f6f8;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading {
+        text-align: center;
+        color: #444;
+      }
+      .loading h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.3rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="loading">
+      <h1>Loading Admin Panel…</h1>
+      <p>If this page stays blank, check your <code>config.yaml</code> file.</p>
+    </div>
+
+    <script>
+      // Initialize Decap CMS after the library loads
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.CMS) {
+          CMS.init();
+        } else {
+          console.error("Decap CMS failed to load.");
+        }
+      });
     </script>
   </body>
 </html>

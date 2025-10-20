@@ -1,1 +1,65 @@
-AddType text/yaml .yml
+# =====================================================
+# 🔧 BASIC SITE CONFIGURATION (Hostinger / Apache)
+# =====================================================
+
+# Use UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Enable gzip compression (improves load speed)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# Correct MIME type for YAML (important for Decap CMS)
+AddType text/x-yaml .yaml
+AddType text/x-yaml .yml
+
+# Disable directory listings
+Options -Indexes
+
+# =====================================================
+# 🌐 URL REWRITING (optional for clean URLs)
+# =====================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect "www" to non-www (optional)
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Force HTTPS (optional but recommended)
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Allow direct access to existing files and folders
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # If a request doesn't match a file/folder, serve index.html (SPA support)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# =====================================================
+# 📦 CACHING (optional)
+# =====================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresDefault "access plus 1 week"
+</IfModule>
+
+# =====================================================
+# 🧱 SECURITY HEADERS (optional but good to include)
+# =====================================================
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+</IfModule>
