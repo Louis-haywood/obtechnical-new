@@ -14,5 +14,5 @@ collections:
         label: "Home Page"
         name: "home"
         fields:
-          - { label: "Page Title", name: "title", widget: "string" }
-          - { label: "Main Text", name: "body", widget: "markdown" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
