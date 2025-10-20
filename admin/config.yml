@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Louis-haywood/obtechnical-new
+  repo: Louis-haywood/obtechnical
   branch: main
 
 media_folder: "images/uploads"
