@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Website Admin Panel</title>
 
-    <!-- Load Decap CMS -->
+    <!-- Tell Decap CMS to use config.yaml -->
     <script>
-      /* Force Decap CMS to load config.yaml (avoids MIME issues on some hosts) */
       window.CMS_CONFIG_PATH = "/admin/config.yaml";
     </script>
+
+    <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <style>
@@ -40,7 +41,6 @@
     </div>
 
     <script>
-      // Initialize Decap CMS after the library loads
       document.addEventListener("DOMContentLoaded", function () {
         if (window.CMS) {
           CMS.init();

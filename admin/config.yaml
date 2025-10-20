@@ -1,10 +1,10 @@
 backend:
   name: github
-  repo: Louis-haywood/obtechnical
-  branch: main
+  repo: Louis-haywood/obtechnical    # your GitHub repo
+  branch: main                       # your repo’s main branch
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images/uploads"       # where uploaded images go
+public_folder: "/images/uploads"     # how they appear on the site
 
 collections:
   - name: "pages"

@@ -2,15 +2,9 @@
 # 🔧 BASIC SITE CONFIGURATION (Hostinger / Apache)
 # =====================================================
 
-# Use UTF-8 encoding
 AddDefaultCharset UTF-8
 
-# Enable gzip compression (improves load speed)
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
-</IfModule>
-
-# Correct MIME type for YAML (important for Decap CMS)
+# Allow YAML to load with correct MIME type (Fixes Decap CMS blank screen)
 AddType text/x-yaml .yaml
 AddType text/x-yaml .yml
 
@@ -18,25 +12,21 @@ AddType text/x-yaml .yml
 Options -Indexes
 
 # =====================================================
-# 🌐 URL REWRITING (optional for clean URLs)
+# 🌐 URL REWRITING (optional)
 # =====================================================
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Redirect "www" to non-www (optional)
-  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
-
-  # Force HTTPS (optional but recommended)
+  # Force HTTPS (optional but good)
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Allow direct access to existing files and folders
+  # Allow existing files and folders
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # If a request doesn't match a file/folder, serve index.html (SPA support)
+  # Fallback to index.html for SPA
   RewriteRule ^ index.html [L]
 </IfModule>
 
@@ -51,12 +41,11 @@ Options -Indexes
   ExpiresByType image/gif "access plus 1 year"
   ExpiresByType text/css "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
   ExpiresDefault "access plus 1 week"
 </IfModule>
 
 # =====================================================
-# 🧱 SECURITY HEADERS (optional but good to include)
+# 🧱 SECURITY HEADERS
 # =====================================================
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
