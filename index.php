@@ -1,7 +1,7 @@
 
 <?php
 // Basic page metadata
-$name = "Olivser Bates";
+$name = "Olser Bates";
 $title = "Lighting & Sound Engineer";
 $bio = "Professional lighting and sound engineer with experience in live events, theatre, and production environments. Passionate about creating immersive visual and audio experiences.";
 ?>
